@@ -3,3 +3,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.underline-green {
+    position: relative;
+    color: black; /* Text color */
+}
+.underline-green::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px; 
+    width: 100%;
+    height: 4px; 
+    background-color: #34d399; 
+}

@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import "./App.css";
-import Navbar from "./components/fixed/Navbar";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import Campaign from "./pages/Campaign";
 import CampaignDetail from "./pages/CampaignDetail";
 import CreateCampaign from "./pages/CreateCampaign";
-import Footer from "./components/fixed/Footer";
+import { Navbar } from "./components/fixed/Navbar";
+import { Footer } from "./components/fixed/Footer";
+import { Home } from "./pages/Home";
 
 function App() {
   const [connectedAccount, setConnectedAccount] = useState("");

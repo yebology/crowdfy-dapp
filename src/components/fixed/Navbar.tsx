@@ -13,7 +13,7 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
       <div className="flex-1 flex-start">
-        <h1 className="font-poppins font-medium cursor-pointer text-[18px]">
+        <h1 className="font-bold cursor-pointer text-2xl text-green-400">
           Crowdfy
         </h1>
       </div>
@@ -22,7 +22,7 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
         {navList.map((nav, index) => (
           <li
             key={nav.link}
-            className={`font-poppins cursor-pointer ${clicked === nav.title ? "font-semibold text-green-400" : "font-normal"} ${
+            className={`cursor-pointer ${clicked === nav.title ? "font-semibold underline-green" : "font-medium"} ${
               index === navList.length - 1 ? "mr-0" : "mr-10"
             }`}
             onClick={() => setClicked(nav.title)}
@@ -36,7 +36,7 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
         {account ? (
           <button
             type="button"
-            className="hover:scale-105 duration-200 px-6 py-2.5 font-poppins font-normal text-[16px] shadow-md border connect-wallet-gradient"
+            className="hover:scale-105 duration-200 px-6 py-2.5 font-normal text-[16px] shadow-md border connect-wallet-gradient"
           >
             {truncate(account, 4, 4, 11)}
           </button>
@@ -44,7 +44,7 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
           <button
             onClick={action}
             type="button"
-            className="hover:scale-105 duration-200 text-white px-6 py-3.5 font-poppins font-normal text-[16px] shadow-md rounded-full bg-green-400"
+            className="hover:scale-105 duration-200 text-white px-6 py-3.5 font-normal text-[16px] shadow-md rounded-full bg-green-400"
           >
             Connect Wallet
           </button>
@@ -62,14 +62,14 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
         <div
           className={`${
             !toggle ? "hidden" : "flex"
-          } p-6 bg-black-gradient popup-visible absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
+          } p-6 bg-black popup-visible absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
         >
           <ul className="list-none flex justify-end items-start flex-1 flex-col">
             {navList.map((nav) => (
               <li
                 key={nav.link}
-                className={`font-poppins font-medium mb-4 cursor-pointer text-[16px] ${
-                  clicked === nav.title ? "text-white" : "text-dimWhite"
+                className={`font-medium mb-4 cursor-pointer text-[16px] ${
+                  clicked === nav.title ? "text-green-500" : "text-white"
                 }`}
                 onClick={() => setClicked(nav.title)}
               >
@@ -78,8 +78,8 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
             ))}
             {account ? (
               <li
-                className={`font-poppins font-medium mb-0 cursor-pointer text-[16px] ${
-                  clicked === "Signout" ? "text-white" : "text-dimWhite"
+                className={`font-medium mb-0 cursor-pointer text-[16px] ${
+                  clicked === "Signout" ? "text-green-500" : "text-white"
                 }`}
                 onClick={() => {
                   // 
@@ -89,8 +89,8 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
               </li>
             ) : (
               <li
-                className={`font-poppins font-medium mb-0 cursor-pointer text-[16px] ${
-                  clicked === "Signout" ? "text-white" : "text-dimWhite"
+                className={` font-medium mb-0 cursor-pointer text-[16px] ${
+                  clicked === "Signout" ? "text-green-500" : "text-white"
                 }`}
                 onClick={action}
               >

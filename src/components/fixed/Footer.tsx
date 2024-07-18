@@ -1,4 +1,3 @@
-import React from "react";
 import { navList } from "../../services/ContentList";
 
 export const Footer = () => {

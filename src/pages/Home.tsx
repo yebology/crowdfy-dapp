@@ -1,9 +1,11 @@
-import React from 'react'
+import { AdvantageSection } from "../components/section/AdvantageSection";
+import { HeroSection } from "../components/section/HeroSection";
 
-const Home = () => {
+export const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
-
-export default Home
+    <>
+      <HeroSection />
+      <AdvantageSection />
+    </>
+  );
+};
