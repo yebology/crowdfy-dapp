@@ -6,7 +6,7 @@ import { NavProps } from "../../services/Interface";
 import close from "../../assets/close.svg";
 import menu from "../../assets/menu.svg";
 
-const Navbar : React.FC<NavProps> = ({ account, action }) => {
+export const Navbar : React.FC<NavProps> = ({ account, action }) => {
   const [toggle, setToggle] = useState(false);
   const [clicked, setClicked] = useState("Home");
 
@@ -103,7 +103,3 @@ const Navbar : React.FC<NavProps> = ({ account, action }) => {
     </nav>
   );
 };
-
-
-
-export default Navbar;
