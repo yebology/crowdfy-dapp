@@ -1,13 +1,13 @@
 import { IconType } from "react-icons";
 
 export interface NavProps {
-    account: string;
-    action: () => void
+  account: string;
+  action: () => void;
 }
 
 export interface NavItem {
-    title: string;
-    link: string;
+  title: string;
+  link: string;
 }
 
 export interface Advantage {
@@ -16,9 +16,29 @@ export interface Advantage {
   description: string;
 }
 
+export interface Detail {
+  icon: IconType;
+  content: string;
+}
+
 export interface CampaignCardProps {
   campaign: CampaignInterface;
   actionClick: (id: number) => void;
+}
+
+export interface SearchBarProps {
+  query: string;
+  actionSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface DescriptionSectionProps {
+  campaign: CampaignInterface;
+}
+
+export interface CampaignDetailProps {
+  campaign: CampaignInterface;
+  actionClick: () => void;
+  onClose: () => void;
 }
 
 export interface CampaignInterface {

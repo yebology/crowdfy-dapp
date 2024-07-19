@@ -1,4 +1,4 @@
-import { Advantage, CampaignInterface, NavItem } from "./Interface";
+import { Advantage, CampaignInterface, Detail, NavItem } from "./Interface";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { HiOutlineCubeTransparent } from "react-icons/hi2";
@@ -17,6 +17,20 @@ export const navList: NavItem[] = [
     title: "Create Campaign",
     link: "/create_campaign",
   },
+];
+
+export const detailList: Detail[] = [
+  {
+    icon: ,
+    content: "Creator"
+  },
+  {
+    icon: ,
+    content: "Start"
+  },
+  {
+    icon: ,
+  }
 ];
 
 export const advantageList: Advantage[] = [

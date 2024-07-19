@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Campaign from "./pages/Campaign";
-import CreateCampaign from "./pages/CreateCampaign";
+import { CreateCampaign } from "./pages/CreateCampaign";
 import { Navbar } from "./components/fixed/Navbar";
 import { Footer } from "./components/fixed/Footer";
 import { Home } from "./pages/Home";
+import { CampaignDetail } from "./pages/CampaignDetail";
 
 function App() {
   const [connectedAccount, setConnectedAccount] = useState("");
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/campaign" element={<Campaign />} />
+        <Route path="/campaign/:id" element={<CampaignDetail />} />
         <Route path="/create_campaign" element={<CreateCampaign />} />
       </Routes>
       <Footer />
