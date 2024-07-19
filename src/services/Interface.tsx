@@ -16,11 +16,6 @@ export interface Advantage {
   description: string;
 }
 
-export interface Detail {
-  icon: IconType;
-  content: string;
-}
-
 export interface CampaignCardProps {
   campaign: CampaignInterface;
   actionClick: (id: number) => void;
@@ -32,6 +27,11 @@ export interface SearchBarProps {
 }
 
 export interface DescriptionSectionProps {
+  actionClick: () => void;
+  campaign: CampaignInterface;
+}
+
+export interface DetailSectionProps {
   campaign: CampaignInterface;
 }
 
@@ -39,6 +39,14 @@ export interface CampaignDetailProps {
   campaign: CampaignInterface;
   actionClick: () => void;
   onClose: () => void;
+}
+
+export interface ParticipantSectionProps {
+  participants: ParticipantInterface[];
+}
+
+export interface ParticipantCardProps {
+  participant: ParticipantInterface;
 }
 
 export interface CampaignInterface {
@@ -51,4 +59,11 @@ export interface CampaignInterface {
   fundsRequired: number;
   currentRaised: number;
   status: number;
+}
+
+export interface ParticipantInterface {
+  id: number;
+  user: string;
+  donationAmount: number;
+  timestamp: number;
 }

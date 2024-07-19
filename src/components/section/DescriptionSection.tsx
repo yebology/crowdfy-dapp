@@ -44,13 +44,20 @@ export const DescriptionSection: React.FC<DescriptionSectionProps> = ({
               <p className="font-poppins font-normal text-[18px] leading-[30.8px] max-w-[600px] mt-5">
                 {campaign.campaignDescription}
               </p>
-
-              <button
-                onClick={scrollToSection}
-                className="mt-6 text-white font-poppins font-normal rounded-xl bg-green-400 py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
-              >
-                See more Detail
-              </button>
+              <div className="flex flex-row space-x-2">
+                <button
+                  onClick={scrollToSection}
+                  className="mt-6 text-white font-poppins font-normal rounded-xl bg-green-400 py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
+                >
+                  Participate
+                </button>
+                <button
+                  onClick={scrollToSection}
+                  className="mt-6 text-white font-poppins font-normal rounded-xl border-2 border-green-400 py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
+                >
+                  More Detail
+                </button>
+              </div>
             </div>
           </section>
         </div>

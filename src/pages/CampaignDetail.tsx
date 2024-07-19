@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { campaignsData } from "../services/ContentList";
+import { campaignsData, participantsData } from "../services/ContentList";
 import { CampaignInterface } from "../services/Interface";
 import { DescriptionSection } from "../components/section/DescriptionSection";
 import { DetailSection } from "../components/section/DetailSection";
+import { ParticipantSection } from "../components/section/ParticipantSection";
 
 const defaultCampaign: CampaignInterface = {
     id: 0,
@@ -20,6 +21,10 @@ const defaultCampaign: CampaignInterface = {
 export const CampaignDetail = () => {
   const { id } = useParams();
   const [campaign, setCampaign] = useState<CampaignInterface>(defaultCampaign);
+
+  const handleClickParticipate = async () => {
+
+  }
 
   useEffect(() => {
     if (id) {
@@ -38,9 +43,10 @@ export const CampaignDetail = () => {
   }
 
   return (
-    <div>
-      <DescriptionSection campaign={campaign} />
-      <DetailSection />
-    </div>
+    <>
+      <DescriptionSection campaign={campaign} actionClick={handleClickParticipate}/>
+      <DetailSection campaign={campaign}/>
+      <ParticipantSection participants={participantsData}/>
+    </>
   );
 };
