@@ -1,4 +1,4 @@
-import { Advantage, Campaign, NavItem } from "./Interface";
+import { Advantage, CampaignInterface, NavItem } from "./Interface";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { HiOutlineCubeTransparent } from "react-icons/hi2";
@@ -46,7 +46,7 @@ export const advantageList: Advantage[] = [
   },
 ];
 
-export const campaigns: Campaign[] = [
+export const campaignsData: CampaignInterface[] = [
   {
     id: 1,
     campaignTitle: "Clean Water Initiative",

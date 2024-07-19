@@ -10,11 +10,6 @@ export interface NavItem {
     link: string;
 }
 
-export interface Button {
-  content: string;
-  action: () => void;
-}
-
 export interface Advantage {
   icon: IconType;
   content: string;
@@ -22,10 +17,11 @@ export interface Advantage {
 }
 
 export interface CampaignCardProps {
-  campaign: Campaign;
+  campaign: CampaignInterface;
+  actionClick: (id: number) => void;
 }
 
-export interface Campaign {
+export interface CampaignInterface {
   id: number;
   campaignTitle: string;
   campaignDescription: string;

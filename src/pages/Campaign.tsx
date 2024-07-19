@@ -1,17 +1,45 @@
 import { CampaignCard } from "../components/card/CampaignCard";
 import { SearchBar } from "../components/small/SearchBar";
-import { campaigns } from "../services/ContentList";
+import { campaignsData } from "../services/ContentList";
 import notFound from "../assets/notFound.mp4";
+import { useEffect, useState } from "react";
+import { CampaignInterface } from "../services/Interface";
 
 export const Campaign = () => {
+  const [query, setQuery] = useState("");
+  const [campaigns, setCampaigns] = useState<CampaignInterface[]>([]);
+  const [filteredCampaigns, setFilteredCampaigns] = useState<
+    CampaignInterface[]
+  >([]);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(0);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  const handleClick = (id: number) => {
+    setShowDetailModal(true);
+    setSelectedId(id);
+  };
+
+  const handleParticipate = async () => {};
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await campaignsData;
+      setCampaigns(data);
+    };
+    fetchData();
+  }, [campaigns]);
+
+  useEffect(() => {}, []);
+
   return (
     <div>
       <SearchBar />
       <div id="elections" className="mb-16">
-        <h1 className="font-semibold text-2xl mb-3">
-          {" "}
-          All Campaigns{" "}
-        </h1>
+        <h1 className="font-semibold text-2xl mb-3"> All Campaigns </h1>
         {campaigns.length === 0 ? (
           <div>
             <div className="flex justify-center items-center">
@@ -24,13 +52,12 @@ export const Campaign = () => {
             </div>
           </div>
         ) : (
-          <div
-            className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-          >
+          <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {campaigns.map((campaign, index) => (
               <CampaignCard
                 key={index}
                 campaign={campaign}
+                actionClick={handleClick}
               />
             ))}
           </div>
