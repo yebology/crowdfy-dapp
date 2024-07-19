@@ -21,6 +21,18 @@ export interface Advantage {
   description: string;
 }
 
-export interface Campaign {
+export interface CampaignCardProps {
+  campaign: Campaign;
+}
 
+export interface Campaign {
+  id: number;
+  campaignTitle: string;
+  campaignDescription: string;
+  campaignPicture: string;
+  campaignStart: number;
+  campaignEnd: number;
+  fundsRequired: number;
+  currentRaised: number;
+  status: number;
 }

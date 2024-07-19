@@ -17,7 +17,7 @@ export const AdvantageSection = () => {
           {advantageList.map((advantage: Advantage, index: number) => (
             <div
               key={index}
-              className="hover:shadow-md transition-all duration-300 rounded-xl p-6 w-full flex flex-col justify-center items-center"
+              className="cursor-pointer hover:shadow-md transition-all duration-300 rounded-xl p-6 w-full flex flex-col justify-center items-center"
             >
               <div className="rounded-full bg-green-100 p-3 inline-block">
                 {typeof advantage.icon === "function" && (

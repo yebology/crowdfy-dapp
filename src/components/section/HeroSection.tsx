@@ -9,7 +9,7 @@ export const HeroSection = () => {
         <div className="flex flex-row justify-between items-center w-full">
           <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] ss:leading-[100.8px] leading-[75px]">
             From <span className="text-green-400">
-              Community</span>,
+              Community</span>
             <br className="sm:block hidden" />{" "}
           </h1>
         </div>
