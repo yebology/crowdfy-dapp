@@ -1,24 +1,25 @@
-import React, { useEffect } from "react";
 import { setGlobalState, useGlobalState } from "../../services/Helper";
 import { FaTimes } from "react-icons/fa";
-import verify from "../../assets/verify.mp4";
+import successParticipate from "../../assets/successParticipate.mp4";
+import { useEffect } from "react";
 
-export const ParticipateConfirmationModal = () => {
-  const [participateConfirmationModalScale] = useGlobalState("participateConfirmationModalScale");
+export const SuccessfullyParticipateModal = () => {
+  const [successfullyParticipateModal] = useGlobalState(
+    "successfullyParticipateModalScale"
+  );
 
   const onClose = () => {
-    setGlobalState("participateConfirmationModalScale", "scale-0");
+    setGlobalState("successfullyParticipateModalScale", "scale-0");
   };
 
   useEffect(() => {
-    if (participateConfirmationModalScale == "scale-100") {
-        
+    if (successfullyParticipateModal == "scale-100") {
     }
-  }, [participateConfirmationModalScale])
+  }, [successfullyParticipateModal]);
 
   return (
     <div
-      className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform duration-300 ${participateConfirmationModalScale} popup-visible`}
+      className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform duration-300 ${successfullyParticipateModal} popup-visible`}
     >
       <div className="bg-white shadow-xl shadow-black rounded-xl w-11/12 md:w-2/5 h-7/12 p-6">
         <div className="flex justify-between items-center">
@@ -33,14 +34,14 @@ export const ParticipateConfirmationModal = () => {
         </div>
         <div className="flex justify-center items-center mt-5">
           <div className="rounded-full overflow-hidden w-48 h-48">
-            <video src={verify} autoPlay loop muted></video>
+            <video src={successParticipate} autoPlay loop muted></video>
           </div>
         </div>
         <div className="font-bold text-2xl flex justify-center items-center">
-          <h1>Congratulation!</h1>
+          <h1>Thank you for your support!</h1>
         </div>
         <div className="font-semibold text-lg flex justify-center items-center">
-          <h1>Your vote has been successfully recorded</h1>
+          <h1>Your contribution has made a real difference</h1>
         </div>
         <div className="mt-4 flex justify-center items-center">
           <button

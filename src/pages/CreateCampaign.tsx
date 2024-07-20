@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { setGlobalState } from "../services/Helper";
 
 export const CreateCampaign = () => {
   const [minDateTime, setMinDateTime] = useState("");
@@ -11,6 +12,20 @@ export const CreateCampaign = () => {
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    if (!sessionStorage.getItem("connectedAccount")) {
+      return setGlobalState("mustConnectWalletScale", "scale-100");
+    } else if (
+      campaignTitle == "" ||
+      campaignPicture == "" ||
+      campaignDescription == "" ||
+      campaignStart == "" ||
+      campaignEnd == "" ||
+      fundsRequired == "" ||
+      fundsRequired == "0" ||
+      campaignStart == campaignEnd
+    ) {
+      return setGlobalState("errorCreateCampaignModalScale", "scale-100");
+    }
   };
 
   useEffect(() => {
@@ -118,16 +133,15 @@ export const CreateCampaign = () => {
             />
           </div>
         </div>
-        
       </div>
       <div className="flex justify-end">
-          <button
-            onClick={() => handleSubmit}
-            className="mt-6 text-white font-semibold rounded-xl bg-green-400 py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
-          >
-            Create Campaign
-          </button>
-        </div>
+        <button
+          onClick={() => handleSubmit}
+          className="mt-6 text-white font-semibold rounded-xl bg-green-400 py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
+        >
+          Create Campaign
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,3 +1,14 @@
+import { createGlobalState } from "react-hooks-global-state";
+
+export const { setGlobalState, useGlobalState } = createGlobalState({
+  mustConnectWalletScale: "scale-0",
+  errorCreateCampaignModalScale: "scale-0",
+  signOutConfirmationScale: "scale-0",
+  successfullyCreateCampaignScale: "scale-0",
+  successfullyParticipateModalScale: "scale-0",
+  participateConfirmationModalScale: "scale-0"
+})
+
 export function truncate(
   text: string,
   startChar: number,

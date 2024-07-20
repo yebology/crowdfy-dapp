@@ -49,6 +49,10 @@ export interface ParticipantCardProps {
   participant: ParticipantInterface;
 }
 
+export interface MustConnectWalletModalProps {
+  actionClick: () => void;
+}
+
 export interface CampaignInterface {
   id: number;
   campaignTitle: string;
