@@ -52,7 +52,7 @@ export const DetailSection: React.FC<DetailSectionProps> = ({ campaign }) => {
                 <video src={amountGoals} autoPlay loop className="size-40" />
               </div>
 
-              <h3 className="font-bold mt-2 mb-2">SepoliaETH Goals</h3>
+              <h3 className="font-bold mt-2 mb-2">ETH Goals</h3>
               <p className="text-center font-normal inline-block text-sm">
                 {"12 ETH"}
               </p>
@@ -62,7 +62,7 @@ export const DetailSection: React.FC<DetailSectionProps> = ({ campaign }) => {
                 <video src={amountRaised} autoPlay loop className="size-40" />
               </div>
 
-              <h3 className="font-bold mt-2 mb-2">SepoliaETH Raised</h3>
+              <h3 className="font-bold mt-2 mb-2">ETH Raised</h3>
               <p className="text-center font-normal inline-block text-sm">
                 {"2 ETH"}
               </p>
@@ -72,7 +72,7 @@ export const DetailSection: React.FC<DetailSectionProps> = ({ campaign }) => {
                 <video src={amountLeft} autoPlay loop className="size-40" />
               </div>
 
-              <h3 className="font-bold mt-2 mb-2">SepoliaETH Left</h3>
+              <h3 className="font-bold mt-2 mb-2">ETH Left</h3>
               <p className="text-center font-normal inline-block text-sm">
                 {"10 ETH"}
               </p>

@@ -26,7 +26,7 @@ export const DescriptionSection: React.FC<DescriptionSectionProps> = ({
           <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
         </div>
 
-        <div className="relative z-10 xl:max-w-[1280px] w-full">
+        <div className="relative xl:max-w-[1280px] w-full">
           <section className="flex md:flex-row flex-col sm:py-8 py-6">
             <div className="flex-1 flex flex-col xl:px-0 sm:px-16 px-8 items-center text-center">
               <div className="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2">

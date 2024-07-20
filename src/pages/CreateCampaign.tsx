@@ -78,7 +78,7 @@ export const CreateCampaign = () => {
         </div>
         <div className="col-span-2 lg:col-span-1">
           <label className="font-semibold">
-            Funds Required (Min : 0.001 SepoliaETH){" "}
+            Funds Required (Min : 0.001 ETH){" "}
           </label>
           <div className="flex justify-between mt-4 items-center rounded-xl bg-gray-200">
             <input
