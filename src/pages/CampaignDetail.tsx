@@ -6,6 +6,7 @@ import { DescriptionSection } from "../components/section/DescriptionSection";
 import { DetailSection } from "../components/section/DetailSection";
 import { ParticipantSection } from "../components/section/ParticipantSection";
 import { ParticipateConfirmationModal } from "../components/modal/ParticipateConfirmationModal";
+import { ErrorParticipateCampaignModal } from "../components/modal/ErrorParticipateCampaignModal";
 
 const defaultCampaign: CampaignInterface = {
   id: 0,
@@ -22,7 +23,6 @@ const defaultCampaign: CampaignInterface = {
 export const CampaignDetail = () => {
   const { id } = useParams();
   const [campaign, setCampaign] = useState<CampaignInterface>(defaultCampaign);
-  const [donationAmount, setDonationAmount] = useState("")
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false)
 
@@ -35,11 +35,22 @@ export const CampaignDetail = () => {
     setShowConfirmationModal(true);
   };
 
-  const onClose = () => {
+  const closeConfirmationModal = () => {
     setShowConfirmationModal(false)
   }
 
-  const handleProcessSendETH = async (amount: number) => {};
+  const closeFailedModal = () => {
+    setShowConfirmationModal(false)
+  }
+
+  const handleProcessSendETH = async (amount: number) => {
+    if (amount < 0.0001) {
+      setShowFailedModal(true)
+    }
+    else {
+      
+    }
+  };
 
   useEffect(() => {
     if (id) {
@@ -74,14 +85,20 @@ export const CampaignDetail = () => {
         {showConfirmationModal && (
           <div>
             <ParticipateConfirmationModal
-              campaign={campaign}
               actionClick={handleProcessSendETH}
-              onClose={onClose}
-              donationAmount={donationAmount}
-              setDonationAmount={setDonationAmount}
+              onClose={closeConfirmationModal}
             />
           </div>
         )}
+        {
+          showFailedModal && (
+            <div>
+              <ErrorParticipateCampaignModal 
+              onClose={closeFailedModal}
+              />
+            </div>
+          )
+        }
       </div>
     </div>
   );

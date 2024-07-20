@@ -54,11 +54,8 @@ export interface MustConnectWalletModalProps {
 }
 
 export interface ParticipateConfirmationModalProps {
-  campaign: CampaignInterface;
   actionClick: (amount: number) => void;
   onClose: () => void;
-  donationAmount: string;
-  setDonationAmount: (amount: string) => void
 }
 
 export interface ErrorParticipateCampaignModalProps {

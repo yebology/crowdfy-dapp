@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import participateConfirm from "../../assets/participateConfirm.mp4";
 import { ParticipateConfirmationModalProps } from "../../services/Interface";
 
 export const ParticipateConfirmationModal: React.FC<
   ParticipateConfirmationModalProps
-> = ({ campaign, actionClick, onClose, donationAmount, setDonationAmount }) => {
+> = ({ actionClick, onClose }) => {
+  const [donationAmount, setDonationAmount] = useState("")
+
   return (
     <div
       className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform z-50`}
@@ -44,7 +46,7 @@ export const ParticipateConfirmationModal: React.FC<
         </div>
         <div className="mt-4 flex flex-row items-center space-x-2">
           <button
-            onClick={() => actionClick(10)}
+            onClick={() => actionClick(parseFloat(donationAmount))}
             type="button"
             className="duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-lg py-4 bg-green-400 flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
           >
