@@ -34,14 +34,36 @@ export async function getParticipants(campaignId: number) {
   return await loadParticipant(campaignId);
 }
 
+export async function createCampaign(
+  campaignTitle: string,
+  campaignDescription: string,
+  campaignPicture: string,
+  campaignStart: number,
+  campaignEnd: number,
+  fundsRequired: bigint
+) {
+  try {
+    const contract = await getEthereumContractWithSigner();
+    await contract.createCampaign(
+      campaignTitle,
+      campaignDescription,
+      campaignPicture,
+      campaignStart,
+      campaignEnd,
+      fundsRequired
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function participateCampaign(campaignId: number, amount: string) {
   try {
     const contract = await getEthereumContractWithSigner();
     await contract.participateCampaign(campaignId, {
-      value: parseEther(amount)
+      value: parseEther(amount),
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -100,7 +122,7 @@ function structuredCampaigns(campaigns: any) {
 function structuredParticipants(participants: any) {
   const participantList = participants.map((participant: any) => ({
     id: parseInt(participant.id),
-    user: (participant.user).toString(),
+    user: participant.user.toString(),
     donationAmount: parseFloat(participant.donationAmount),
     timestamp: parseInt(participant.timestamp),
   }));

@@ -13,6 +13,7 @@ const defaultCampaign: CampaignInterface = {
   campaignTitle: "",
   campaignDescription: "",
   campaignPicture: "",
+  campaignCreator: "",
   campaignStart: 0,
   campaignEnd: 0,
   fundsRequired: 0,
@@ -24,7 +25,7 @@ export const CampaignDetail = () => {
   const { id } = useParams();
   const [campaign, setCampaign] = useState<CampaignInterface>(defaultCampaign);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [showFailedModal, setShowFailedModal] = useState(false)
+  const [showFailedModal, setShowFailedModal] = useState(false);
 
   const handleClickParticipate = () => {
     // if (!sessionStorage.getItem("connectedAccount")) {
@@ -36,19 +37,17 @@ export const CampaignDetail = () => {
   };
 
   const closeConfirmationModal = () => {
-    setShowConfirmationModal(false)
-  }
+    setShowConfirmationModal(false);
+  };
 
   const closeFailedModal = () => {
-    setShowConfirmationModal(false)
-  }
+    setShowConfirmationModal(false);
+  };
 
   const handleProcessSendETH = async (amount: number) => {
     if (amount < 0.0001) {
-      setShowFailedModal(true)
-    }
-    else {
-      
+      setShowFailedModal(true);
+    } else {
     }
   };
 
@@ -73,7 +72,9 @@ export const CampaignDetail = () => {
     <div className="relative">
       <div
         className={`transition-opacity duration-500 ${
-          showConfirmationModal || showFailedModal ? "opacity-90" : "opacity-100"
+          showConfirmationModal || showFailedModal
+            ? "opacity-90"
+            : "opacity-100"
         }`}
       >
         <DescriptionSection
@@ -81,24 +82,20 @@ export const CampaignDetail = () => {
           actionClick={handleClickParticipate}
         />
         <DetailSection campaign={campaign} />
-        <ParticipantSection participants={participantsData} />
-        {showConfirmationModal && (
-          <div>
-            <ParticipateConfirmationModal
-              actionClick={handleProcessSendETH}
-              onClose={closeConfirmationModal}
-            />
-          </div>
+        {participantsData.length === 0 ? (
+          <div></div>
+        ) : (
+          <ParticipantSection participants={participantsData} />
         )}
-        {
-          showFailedModal && (
-            <div>
-              <ErrorParticipateCampaignModal 
-              onClose={closeFailedModal}
-              />
-            </div>
-          )
-        }
+        {showConfirmationModal && (
+          <ParticipateConfirmationModal
+            actionClick={handleProcessSendETH}
+            onClose={closeConfirmationModal}
+          />
+        )}
+        {showFailedModal && (
+          <ErrorParticipateCampaignModal onClose={closeFailedModal} />
+        )}
       </div>
     </div>
   );

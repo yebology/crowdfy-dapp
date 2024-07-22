@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { setGlobalState } from "../services/Helper";
+import { parseEther } from "ethers";
+import { createCampaign } from "../services/Blockchain";
 
 export const CreateCampaign = () => {
   const [minDateTime, setMinDateTime] = useState("");
@@ -13,8 +15,9 @@ export const CreateCampaign = () => {
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (!sessionStorage.getItem("connectedAccount")) {
-      return setGlobalState("mustConnectWalletScale", "scale-100");
-    } else if (
+      setGlobalState("mustConnectWalletScale", "scale-100");
+    } 
+    else if (
       campaignTitle == "" ||
       campaignPicture == "" ||
       campaignDescription == "" ||
@@ -24,7 +27,20 @@ export const CreateCampaign = () => {
       fundsRequired == "0" ||
       campaignStart == campaignEnd
     ) {
-      return setGlobalState("errorCreateCampaignModalScale", "scale-100");
+      setGlobalState("errorCreateCampaignModalScale", "scale-100");
+    } 
+    else {
+      const convertedCampaignStart = new Date(campaignStart).getTime() / 1000;
+      const convertedCampaignEnd = new Date(campaignEnd).getTime() / 1000;
+      const convertedFundsRequired = parseEther(fundsRequired);
+      await createCampaign(
+        campaignTitle,
+        campaignDescription,
+        campaignPicture,
+        convertedCampaignStart,
+        convertedCampaignEnd,
+        convertedFundsRequired
+      )
     }
   };
 
@@ -57,6 +73,7 @@ export const CreateCampaign = () => {
               className="block w-full bg-transparent border-0 text-sm py-3 px-3 text-primary focus:outline-none focus:ring-0"
               type="text"
               name="campaignTitle"
+              placeholder="Input your campaign title..."
               onChange={(e) => setCampaignTitle(e.target.value)}
               value={campaignTitle}
               required
@@ -70,6 +87,7 @@ export const CreateCampaign = () => {
               className="block w-full bg-transparent border-0 text-sm py-3 px-3 text-primary focus:outline-none focus:ring-0"
               type="url"
               name="campaignPicture"
+              placeholder="Input your campaign picture url..."
               onChange={(e) => setCampaignPicture(e.target.value)}
               value={campaignPicture}
               required
@@ -84,9 +102,10 @@ export const CreateCampaign = () => {
             <input
               className="block w-full bg-transparent border-0 text-sm py-3 px-3 text-primary focus:outline-none focus:ring-0"
               type="number"
-              step={0.001}
-              min={2}
+              min={0.0001}
+              step={0.0001}
               name="fundsRequired"
+              placeholder="Input require funds for your campaign..."
               onChange={(e) => setFundsRequired(e.target.value)}
               value={fundsRequired}
               required
@@ -127,6 +146,7 @@ export const CreateCampaign = () => {
             <textarea
               className="block w-full bg-transparent border-0 text-sm py-3 px-3 text-primary focus:outline-none focus:ring-0"
               name="campaignDescription"
+              placeholder="Input description about your campaign..."
               onChange={(e) => setCampaignDescription(e.target.value)}
               value={campaignDescription}
               required
