@@ -97,7 +97,7 @@ function structuredCampaigns(campaigns: any) {
   return campaignList;
 }
 
-async function structuredParticipants(participants: any) {
+function structuredParticipants(participants: any) {
   const participantList = participants.map((participant: any) => ({
     id: parseInt(participant.id),
     user: (participant.user).toString(),

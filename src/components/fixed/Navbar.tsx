@@ -6,7 +6,7 @@ import { NavProps } from "../../services/Interface";
 import close from "../../assets/close.svg";
 import menu from "../../assets/menu.svg";
 
-export const Navbar : React.FC<NavProps> = ({ account, action }) => {
+export const Navbar: React.FC<NavProps> = ({ account, actionClick }) => {
   const [toggle, setToggle] = useState(false);
   const [clicked, setClicked] = useState("Home");
 
@@ -22,9 +22,11 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
         {navList.map((nav, index) => (
           <li
             key={nav.link}
-            className={`cursor-pointer ${clicked === nav.title ? "font-semibold underline-green" : "font-medium"} ${
-              index === navList.length - 1 ? "mr-0" : "mr-10"
-            }`}
+            className={`cursor-pointer ${
+              clicked === nav.title
+                ? "font-semibold underline-green"
+                : "font-medium"
+            } ${index === navList.length - 1 ? "mr-0" : "mr-10"}`}
             onClick={() => setClicked(nav.title)}
           >
             <Link to={`${nav.link}`}>{nav.title}</Link>
@@ -35,14 +37,15 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
       <div className="lg:flex hidden flex-1 flex justify-end">
         {account ? (
           <button
+            onClick={actionClick}
             type="button"
-            className="hover:scale-105 duration-200 px-6 py-2.5 font-normal text-[16px] shadow-md border connect-wallet-gradient"
+            className="hover:scale-105 duration-200 text-white px-6 py-3.5 font-normal text-[16px] shadow-md rounded-full bg-green-400"
           >
             {truncate(account, 4, 4, 11)}
           </button>
         ) : (
           <button
-            onClick={action}
+            onClick={actionClick}
             type="button"
             className="hover:scale-105 duration-200 text-white px-6 py-3.5 font-normal text-[16px] shadow-md rounded-full bg-green-400"
           >
@@ -81,9 +84,7 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
                 className={`font-medium mb-0 cursor-pointer text-[16px] ${
                   clicked === "Signout" ? "text-green-500" : "text-white"
                 }`}
-                onClick={() => {
-                  // 
-                }}
+                onClick={actionClick}
               >
                 Sign Out
               </li>
@@ -92,7 +93,7 @@ export const Navbar : React.FC<NavProps> = ({ account, action }) => {
                 className={` font-medium mb-0 cursor-pointer text-[16px] ${
                   clicked === "Signout" ? "text-green-500" : "text-white"
                 }`}
-                onClick={action}
+                onClick={actionClick}
               >
                 Connect Wallet
               </li>

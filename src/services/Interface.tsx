@@ -2,7 +2,7 @@ import { IconType } from "react-icons";
 
 export interface NavProps {
   account: string;
-  action: () => void;
+  actionClick: () => void;
 }
 
 export interface NavItem {
@@ -59,6 +59,11 @@ export interface ParticipateConfirmationModalProps {
 }
 
 export interface ErrorParticipateCampaignModalProps {
+  onClose: () => void;
+}
+
+export interface SignOutConfirmationModalProps {
+  actionClick: () => void;
   onClose: () => void;
 }
 

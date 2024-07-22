@@ -1,19 +1,14 @@
-import { setGlobalState, useGlobalState } from "../../services/Helper";
+import React from "react";
+import { useGlobalState } from "../../services/Helper";
 import { FaTimes } from "react-icons/fa";
 import signoutConfirm from "../../assets/signoutConfirm.mp4";
-import { disconnectWallet } from "../../services/Blockchain";
+import { SignOutConfirmationModalProps } from "../../services/Interface";
 
-export const SignOutConfirmationModal = () => {
+export const SignOutConfirmationModal : React.FC<SignOutConfirmationModalProps> = ({
+  actionClick,
+  onClose 
+}) => {
   const [signOutConfirmationScale] = useGlobalState("signOutConfirmationScale");
-
-  const handleClick = () => {
-    disconnectWallet();
-    onClose();
-  };
-
-  const onClose = () => {
-    setGlobalState("signOutConfirmationScale", "scale-0");
-  };
 
   return (
     <div
@@ -41,18 +36,18 @@ export const SignOutConfirmationModal = () => {
         <div className="font-semibold text-lg flex justify-center items-center">
           <h1>Are you sure want to sign out ? </h1>
         </div>
-        <div className="mt-4 flex justify-center items-center">
+        <div className="mt-4 flex justify-center items-center space-x-2">
           <button
-            onClick={handleClick}
+            onClick={actionClick}
             type="button"
-            className="mr-6 duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-full py-4 bg-primary text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+            className="duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-lg py-4 bg-green-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
           >
             <span className="text-white">Yes</span>
           </button>
           <button
             onClick={onClose}
             type="button"
-            className="confirm-gradient duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-full py-4 bg-white text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+            className="duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-lg py-4 border-2 border-green-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
           >
             <span className="text-primary">No, keep me in</span>
           </button>

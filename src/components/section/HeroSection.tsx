@@ -31,7 +31,7 @@ export const HeroSection = () => {
         <img
           src={investment}
           alt="investment"
-          className="size-96 relative z-[5]"
+          className="size-96 relative"
         />
       </div>
     </section>

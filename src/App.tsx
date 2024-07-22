@@ -11,11 +11,30 @@ import { ErrorCreateCampaignModal } from "./components/modal/ErrorCreateCampaign
 import { SignOutConfirmationModal } from "./components/modal/SignOutConfirmationModal";
 import { SuccessfullyCreateCampaignModal } from "./components/modal/SuccessfullyCreateCampaignModal";
 import { SuccessfullyParticipateModal } from "./components/modal/SuccessfullyParticipateModal";
+import { connectWallet, disconnectWallet } from "./services/Blockchain";
+import { setGlobalState } from "./services/Helper";
 
 function App() {
   const [connectedAccount, setConnectedAccount] = useState("");
 
-  const handleClick = async () => {};
+  const handleClick = async () => {
+    if (!sessionStorage.getItem("connectedAccount")) {
+      await connectWallet();
+      setConnectedAccount(sessionStorage.getItem("connectedAccount") || "");
+    } else {
+      setGlobalState("signOutConfirmationScale", "scale-100");
+    }
+  };
+
+  const handleDisconnectWallet = () => {
+    disconnectWallet();
+    handleClose();
+    setConnectedAccount("");
+  };
+
+  const handleClose = () => {
+    setGlobalState("signOutConfirmationScale", "scale-0");
+  };
 
   useEffect(() => {
     const storedAccount = sessionStorage.getItem("connectedAccount");
@@ -26,7 +45,7 @@ function App() {
 
   return (
     <div className="w-screen font-poppins overflow-hidden bg-white sm:px-12 px-6">
-      <Navbar account={connectedAccount} action={handleClick} />
+      <Navbar account={connectedAccount} actionClick={handleClick} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/campaign" element={<Campaign />} />
@@ -36,7 +55,10 @@ function App() {
       <Footer />
       <ErrorCreateCampaignModal />
       <MustConnectWalletModal actionClick={handleClick} />
-      <SignOutConfirmationModal />
+      <SignOutConfirmationModal
+        actionClick={handleDisconnectWallet}
+        onClose={handleClose}
+      />
       <SuccessfullyCreateCampaignModal />
       <SuccessfullyParticipateModal />
     </div>
