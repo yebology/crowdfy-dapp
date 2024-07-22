@@ -1,0 +1,272 @@
+[
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "AmountMustBeGreaterThanZero",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "campaignId", "type": "uint256" }
+    ],
+    "name": "CampaignIsClosed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "searchId", "type": "uint256" }
+    ],
+    "name": "CampaignNotFound",
+    "type": "error"
+  },
+  { "inputs": [], "name": "EmptyFieldExist", "type": "error" },
+  { "inputs": [], "name": "InsufficientBalance", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "campaignStart", "type": "uint256" },
+      { "internalType": "uint256", "name": "campaignEnd", "type": "uint256" }
+    ],
+    "name": "InvalidTime",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "campaignId", "type": "uint256" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "TransferFailed",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "campaignId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "enum Crowdfy.CampaignStatus",
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "name": "CampaignStatusChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "campaignId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "creator",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "participant",
+        "type": "address"
+      }
+    ],
+    "name": "DonationReceived",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "FallbackCalled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "campaignId",
+        "type": "uint256"
+      }
+    ],
+    "name": "NewCampaignHasBeenCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "ReceiveCalled",
+    "type": "event"
+  },
+  { "stateMutability": "payable", "type": "fallback" },
+  {
+    "inputs": [],
+    "name": "checkAndChangeCampaignStatus",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_campaignTitle", "type": "string" },
+      {
+        "internalType": "string",
+        "name": "_campaignDescription",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_campaignPicture",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_campaignStart",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "_campaignEnd", "type": "uint256" },
+      { "internalType": "uint256", "name": "_fundsRequired", "type": "uint256" }
+    ],
+    "name": "createCampaign",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCampaigns",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "id", "type": "uint256" },
+          {
+            "internalType": "string",
+            "name": "campaignTitle",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "campaignDescription",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "campaignPicture",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "campaignStart",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "campaignEnd",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "campaignCreator",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fundsRequired",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentRaised",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum Crowdfy.CampaignStatus",
+            "name": "status",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct Crowdfy.Campaign[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_campaignId", "type": "uint256" }
+    ],
+    "name": "getParticipant",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "id", "type": "uint256" },
+          { "internalType": "address", "name": "user", "type": "address" },
+          {
+            "internalType": "uint256",
+            "name": "donationAmount",
+            "type": "uint256"
+          },
+          { "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+        ],
+        "internalType": "struct Crowdfy.Participant[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_campaignId", "type": "uint256" }
+    ],
+    "name": "participateCampaign",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  { "stateMutability": "payable", "type": "receive" }
+]

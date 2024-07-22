@@ -69,6 +69,7 @@ export interface CampaignInterface {
   campaignPicture: string;
   campaignStart: number;
   campaignEnd: number;
+  campaignCreator: string;
   fundsRequired: number;
   currentRaised: number;
   status: number;
