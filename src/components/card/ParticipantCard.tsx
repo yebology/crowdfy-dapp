@@ -1,6 +1,6 @@
 import React from "react";
 import { ParticipantCardProps } from "../../services/Interface";
-import { formatParticipantTimestamp } from "../../services/Helper";
+import { convertToETH, formatParticipantTimestamp, truncate } from "../../services/Helper";
 
 export const ParticipantCard: React.FC<ParticipantCardProps> = ({
   participant,
@@ -19,7 +19,7 @@ export const ParticipantCard: React.FC<ParticipantCardProps> = ({
                 />
                 <div>
                   <h3 className="text-sm font-medium lg:text-lg md:text-md">
-                    {participant.user}
+                    {truncate(participant.user, 4, 4, 11)}
                   </h3>
                 </div>
               </div>
@@ -32,7 +32,7 @@ export const ParticipantCard: React.FC<ParticipantCardProps> = ({
 
             <p className={`leading-normal text-sm`}>
               Recently contributed{" "}
-              <span className="font-bold">{participant.donationAmount} SepoliaETH</span>
+              <span className="font-bold">{convertToETH(participant.donationAmount)}{" "}ETH</span>
             </p>
           </div>
         </a>

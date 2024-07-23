@@ -113,28 +113,18 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({
           </div>
 
           <div className="flex justify-between items-center flex-wrap bg-gray-100 text-gray-500 font-semibold">
-            <div className="grid grid-cols-3 w-full my-4 text-center">
+            <div className="grid grid-cols-2 w-full my-4 text-center">
               <div className="flex flex-col items-center justify-center">
                 <h1 className="text-xs">Raised</h1>
                 <h1 className="text-sm text-black font-bold">
                   {convertToETH(campaign.currentRaised)} ETH
                 </h1>
               </div>
-              <div className="flex flex-col items-center justify-center border-l-2 border-r-2 -my-4">
+              <div className="flex flex-col items-center justify-center border-l-2 -my-4">
                 <div>
                   <h1 className="text-xs">Goals</h1>
                   <h1 className="text-sm text-black font-bold">
                     {convertToETH(campaign.fundsRequired)} ETH
-                  </h1>
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="flex flex-col items-center justify-center">
-                  <h1 className="text-xs">Left</h1>
-                  <h1 className="text-sm text-black font-bold">
-                    {convertToETH(campaign.fundsRequired) -
-                      convertToETH(campaign.currentRaised)}{" "}
-                    ETH
                   </h1>
                 </div>
               </div>

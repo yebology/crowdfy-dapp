@@ -1,7 +1,6 @@
 import { setGlobalState, useGlobalState } from "../../services/Helper";
 import { FaTimes } from "react-icons/fa";
 import successParticipate from "../../assets/successParticipate.mp4";
-import { useEffect } from "react";
 
 export const SuccessfullyParticipateModal = () => {
   const [successfullyParticipateModal] = useGlobalState(
@@ -11,11 +10,6 @@ export const SuccessfullyParticipateModal = () => {
   const onClose = () => {
     setGlobalState("successfullyParticipateModalScale", "scale-0");
   };
-
-  useEffect(() => {
-    if (successfullyParticipateModal == "scale-100") {
-    }
-  }, [successfullyParticipateModal]);
 
   return (
     <div
@@ -47,7 +41,7 @@ export const SuccessfullyParticipateModal = () => {
           <button
             onClick={onClose}
             type="button"
-            className="duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-full py-4 bg-primary text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+            className="duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-full py-4 bg-green-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
           >
             <span className="text-white">Close Popup</span>
           </button>
