@@ -56,10 +56,12 @@ export const CampaignDetail = () => {
     } 
     else {
       try {
-        setGlobalState("loadingModalScale", "scale-100")
+        setShowConfirmationModal(false);
         const transaction = await participateCampaign(convertedId, amount.toString())
+        setGlobalState("loadingModalScale", "scale-100")
         await transaction.wait()
         setGlobalState("loadingModalScale", "scale-0")
+
       }
       catch (error) {
         console.log(error)

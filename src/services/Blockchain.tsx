@@ -1,5 +1,6 @@
+import React from "react";
 import contractAbi from "../abi/DeployedContract.json";
-import { ethers, parseEther, parseUnits } from "ethers";
+import { ethers, parseEther } from "ethers";
 
 const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
 const contractNetwork = import.meta.env.VITE_NETWORK;
@@ -19,6 +20,15 @@ export async function connectWallet() {
     sessionStorage.setItem("connectedAccount", accounts[0]);
   } catch (error) {
     console.log(error);
+  }
+}
+
+export function changeAccount(setConnectedAccount: React.Dispatch<React.SetStateAction<string>>): (accounts: string[]) => void {
+  return (accounts: string[]) => {
+    if (accounts.length > 0) {
+      sessionStorage.setItem("connectedAccount", accounts[0])
+      setConnectedAccount(accounts[0])
+    }
   }
 }
 
@@ -53,13 +63,12 @@ export async function createCampaign(
       fundsRequired,
       {
         gasLimit: 3000000,
-        gasPrice: parseUnits("20", "gwei"),
       }
     );
     return transaction;
   } catch (error) {
     console.log(error);
-    return ""
+    return "";
   }
 }
 
@@ -68,8 +77,9 @@ export async function participateCampaign(campaignId: number, amount: string) {
     const contract = await getEthereumContractWithSigner();
     const transaction = await contract.participateCampaign(campaignId, {
       value: parseEther(amount),
+      gasLimit: 3000000,
     });
-    return transaction
+    return transaction;
   } catch (error) {
     console.log(error);
     return "";
