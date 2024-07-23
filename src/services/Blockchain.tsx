@@ -1,5 +1,5 @@
 import contractAbi from "../abi/DeployedContract.json";
-import { ethers, parseEther } from "ethers";
+import { ethers, parseEther, parseUnits } from "ethers";
 
 const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
 const contractNetwork = import.meta.env.VITE_NETWORK;
@@ -44,16 +44,22 @@ export async function createCampaign(
 ) {
   try {
     const contract = await getEthereumContractWithSigner();
-    await contract.createCampaign(
+    const transaction = await contract.createCampaign(
       campaignTitle,
       campaignDescription,
       campaignPicture,
       campaignStart,
       campaignEnd,
-      fundsRequired
+      fundsRequired,
+      {
+        gasLimit: 3000000,
+        gasPrice: parseUnits("20", "gwei"),
+      }
     );
+    return transaction;
   } catch (error) {
     console.log(error);
+    return ""
   }
 }
 

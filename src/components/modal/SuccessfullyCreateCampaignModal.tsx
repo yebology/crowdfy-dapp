@@ -1,8 +1,10 @@
 import { setGlobalState, useGlobalState } from "../../services/Helper";
 import { FaTimes } from "react-icons/fa";
 import successCreate from "../../assets/sucessCreate.mp4";
+import { useNavigate } from "react-router-dom";
 
 export const SuccessfullyCreateCampaignModal = () => {
+  const navigate = useNavigate();
   const [successfullyCreateCampaignScale] = useGlobalState(
     "successfullyCreateCampaignScale"
   );
@@ -10,6 +12,11 @@ export const SuccessfullyCreateCampaignModal = () => {
   const onClose = () => {
     setGlobalState("successfullyCreateCampaignScale", "scale-0");
   };
+
+  const handleClick = () => {
+    onClose()
+    navigate("/")
+  }
 
   return (
     <div
@@ -39,11 +46,11 @@ export const SuccessfullyCreateCampaignModal = () => {
         </div>
         <div className="mt-4 flex justify-center items-center">
           <button
-            onClick={onClose}
+            onClick={handleClick}
             type="button"
-            className="duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-full py-4 bg-primary text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+            className="duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-full py-4 bg-green-400 text-white flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
           >
-            <span className="text-white">Close</span>
+            <span className="text-white">Back to Home</span>
           </button>
         </div>
       </div>

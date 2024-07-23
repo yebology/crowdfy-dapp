@@ -9,8 +9,8 @@ export const Footer = () => {
             ©<a href="#">Crowdfy</a> 2024, All rights reserved.
           </span>
         </li>
-        {navList.map((nav) => (
-          <li>
+        {navList.map((nav, index) => (
+          <li key={index}>
             <a href={`${nav.link}`}> {nav.title} </a>
           </li>
         ))}

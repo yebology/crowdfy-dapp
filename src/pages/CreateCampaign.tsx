@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { setGlobalState } from "../services/Helper";
 import { parseEther } from "ethers";
 import { createCampaign } from "../services/Blockchain";
+import { useNavigate } from "react-router-dom";
 
 export const CreateCampaign = () => {
   const [minDateTime, setMinDateTime] = useState("");
@@ -11,13 +12,12 @@ export const CreateCampaign = () => {
   const [campaignStart, setCampaignStart] = useState("");
   const [campaignEnd, setCampaignEnd] = useState("");
   const [fundsRequired, setFundsRequired] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     if (!sessionStorage.getItem("connectedAccount")) {
       setGlobalState("mustConnectWalletScale", "scale-100");
-    } 
-    else if (
+    } else if (
       campaignTitle == "" ||
       campaignPicture == "" ||
       campaignDescription == "" ||
@@ -28,21 +28,42 @@ export const CreateCampaign = () => {
       campaignStart == campaignEnd
     ) {
       setGlobalState("errorCreateCampaignModalScale", "scale-100");
-    } 
-    else {
+    } else {
       const convertedCampaignStart = new Date(campaignStart).getTime() / 1000;
       const convertedCampaignEnd = new Date(campaignEnd).getTime() / 1000;
       const convertedFundsRequired = parseEther(fundsRequired);
-      await createCampaign(
-        campaignTitle,
-        campaignDescription,
-        campaignPicture,
-        convertedCampaignStart,
-        convertedCampaignEnd,
-        convertedFundsRequired
-      )
+
+      try {
+        const transaction = await createCampaign(
+          campaignTitle,
+          campaignDescription,
+          campaignPicture,
+          convertedCampaignStart,
+          convertedCampaignEnd,
+          convertedFundsRequired
+        );
+        setGlobalState("loadingModalScale", "scale-100");
+        await transaction.wait();
+        setGlobalState("loadingModalScale", "scale-0");
+        setGlobalState("successfullyCreateCampaignScale", "scale-100");
+        resetData();
+        navigate("/")
+      } catch (error) {
+        console.error(error);
+        setGlobalState("loadingModalScale", "scale-0");
+        setGlobalState("errorCreateCampaignModalScale", "scale-100")
+      }
     }
   };
+
+  const resetData = () => {
+    setCampaignTitle("")
+    setCampaignDescription("")
+    setCampaignPicture("")
+    setCampaignStart("")
+    setCampaignEnd("")
+    setFundsRequired("")
+  }
 
   useEffect(() => {
     const now = new Date();
@@ -96,7 +117,7 @@ export const CreateCampaign = () => {
         </div>
         <div className="col-span-2 lg:col-span-1">
           <label className="font-semibold">
-            Funds Required (Min : 0.001 ETH){" "}
+            Funds Required (Min : 0.0001 ETH){" "}
           </label>
           <div className="flex justify-between mt-4 items-center rounded-xl bg-gray-200">
             <input
@@ -156,7 +177,7 @@ export const CreateCampaign = () => {
       </div>
       <div className="flex justify-end">
         <button
-          onClick={() => handleSubmit}
+          onClick={handleSubmit}
           className="mt-6 text-white font-semibold rounded-xl bg-green-400 py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
         >
           Create Campaign

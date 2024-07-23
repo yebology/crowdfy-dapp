@@ -6,7 +6,8 @@ export const { setGlobalState, useGlobalState } = createGlobalState({
   signOutConfirmationScale: "scale-0",
   successfullyCreateCampaignScale: "scale-0",
   successfullyParticipateModalScale: "scale-0",
-  participateConfirmationModalScale: "scale-0"
+  participateConfirmationModalScale: "scale-0",
+  loadingModalScale: "scale-0"
 })
 
 export function truncate(

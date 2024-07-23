@@ -13,6 +13,7 @@ import { SuccessfullyCreateCampaignModal } from "./components/modal/Successfully
 import { SuccessfullyParticipateModal } from "./components/modal/SuccessfullyParticipateModal";
 import { connectWallet, disconnectWallet } from "./services/Blockchain";
 import { setGlobalState } from "./services/Helper";
+import { LoadingModal } from "./components/modal/LoadingModal";
 
 function App() {
   const [connectedAccount, setConnectedAccount] = useState("");
@@ -61,6 +62,7 @@ function App() {
       />
       <SuccessfullyCreateCampaignModal />
       <SuccessfullyParticipateModal />
+      <LoadingModal />
     </div>
   );
 }
