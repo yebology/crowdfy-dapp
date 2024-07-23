@@ -35,10 +35,10 @@ export const ParticipateConfirmationModal: React.FC<
           <input
             className="block w-full bg-transparent border-0 text-sm py-3 px-3 text-primary focus:outline-none focus:ring-0"
             type="number"
-            step={0.001}
-            min={2}
+            step={0.000001}
+            min={0.000001}
             name="donationAmount"
-            placeholder="Enter donation amount for confirmation... (min 0.0001 ETH)"
+            placeholder="Enter donation amount for confirmation... (min 0.000001 ETH)"
             onChange={(e) => setDonationAmount(e.target.value)}
             value={donationAmount}
             required

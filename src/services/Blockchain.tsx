@@ -66,11 +66,13 @@ export async function createCampaign(
 export async function participateCampaign(campaignId: number, amount: string) {
   try {
     const contract = await getEthereumContractWithSigner();
-    await contract.participateCampaign(campaignId, {
+    const transaction = await contract.participateCampaign(campaignId, {
       value: parseEther(amount),
     });
+    return transaction
   } catch (error) {
     console.log(error);
+    return "";
   }
 }
 

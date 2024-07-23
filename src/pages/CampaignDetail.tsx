@@ -7,7 +7,8 @@ import { DetailSection } from "../components/section/DetailSection";
 import { ParticipantSection } from "../components/section/ParticipantSection";
 import { ParticipateConfirmationModal } from "../components/modal/ParticipateConfirmationModal";
 import { ErrorParticipateCampaignModal } from "../components/modal/ErrorParticipateCampaignModal";
-import { getCampaigns } from "../services/Blockchain";
+import { getCampaigns, participateCampaign } from "../services/Blockchain";
+import { setGlobalState } from "../services/Helper";
 
 const defaultCampaign: CampaignInterface = {
   id: 0,
@@ -27,14 +28,17 @@ export const CampaignDetail = () => {
   const [campaign, setCampaign] = useState<CampaignInterface>(defaultCampaign);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false);
+  const [convertedId, setConvertedId] = useState(0);
 
   const handleClickParticipate = () => {
-    // if (!sessionStorage.getItem("connectedAccount")) {
-    //   return setGlobalState("mustConnectWalletScale", "scale-100");
-    // } else {
-    //   setShowModal(true);
-    // }
-    setShowConfirmationModal(true);
+    if (!sessionStorage.getItem("connectedAccount")) {
+      setGlobalState("mustConnectWalletScale", "scale-100");
+      if (sessionStorage.getItem("connectedAccount")) {
+        setGlobalState("mustConnectWalletScale", "scale-0");
+      }
+    } else {
+      setShowConfirmationModal(true);
+    }
   };
 
   const closeConfirmationModal = () => {
@@ -42,26 +46,42 @@ export const CampaignDetail = () => {
   };
 
   const closeFailedModal = () => {
-    setShowConfirmationModal(false);
+    setShowFailedModal(false);
   };
 
   const handleProcessSendETH = async (amount: number) => {
-    if (amount < 0.0001) {
+    if (amount < 0.000001) {
+      setShowConfirmationModal(false);
       setShowFailedModal(true);
-    } else {
+    } 
+    else {
+      try {
+        setGlobalState("loadingModalScale", "scale-100")
+        const transaction = await participateCampaign(convertedId, amount.toString())
+        await transaction.wait()
+        setGlobalState("loadingModalScale", "scale-0")
+      }
+      catch (error) {
+        console.log(error)
+        setGlobalState("loadingModalScale", "scale-0");
+        setShowFailedModal(true);
+      }
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getCampaigns()
+      const data = await getCampaigns();
       if (id) {
-        const campaignId = parseInt(id, 10)
-        const foundCampaign = data.find((campaign : CampaignInterface) => campaign.id === campaignId);
-        setCampaign(foundCampaign)
+        const campaignId = parseInt(id, 10);
+        const foundCampaign = data.find(
+          (campaign: CampaignInterface) => campaign.id === campaignId
+        );
+        setConvertedId(campaignId);
+        setCampaign(foundCampaign);
       }
-    }
-    fetchData()
+    };
+    fetchData();
   }, [id]);
 
   if (!id) {
