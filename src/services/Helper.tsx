@@ -7,8 +7,47 @@ export const { setGlobalState, useGlobalState } = createGlobalState({
   successfullyCreateCampaignScale: "scale-0",
   successfullyParticipateModalScale: "scale-0",
   participateConfirmationModalScale: "scale-0",
-  loadingModalScale: "scale-0"
-})
+  loadingModalScale: "scale-0",
+});
+
+export function countRemainingTime(campaignStart: number, campaignEnd: number) {
+  const now = Math.floor(Date.now() / 1000);
+  if (now >= campaignEnd) {
+    return "CLOSE";
+  } 
+  else if (now < campaignStart) {
+    return "NOT STARTED";
+  } 
+  else {
+    const remainingTime = campaignEnd - now;
+    const remainingDay = Math.floor(remainingTime / (60 * 60 * 24));
+    const remainingHours = Math.floor(remainingTime / (60 * 60));
+    const remainingMinutes = Math.floor(remainingTime / 60);
+    if (remainingDay > 0) {
+      return `${remainingDay} days left`
+    }
+    else if (remainingHours > 0) {
+      return `${remainingHours} hours left`
+    }
+    else {
+      return `${remainingMinutes} minutes left`
+    }
+  }
+}
+
+export function convertToETH(amount: number) {
+  const converter = 10 ** 18;
+  const result = amount / converter;
+  return parseFloat(result.toString());
+}
+
+export function convertToPercentage(
+  currentRaised: number,
+  fundsRequired: number
+) {
+  const result = (100 * currentRaised) / fundsRequired;
+  return result;
+}
 
 export function truncate(
   text: string,
@@ -73,9 +112,9 @@ export const unixTimestampConverter = (unixTimestamp: number) => {
 
 export function formatParticipantTimestamp(timestamp: number): string {
   const date = new Date(timestamp * 1000);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
-  
+
   return `${day}/${month}/${year}`;
 }

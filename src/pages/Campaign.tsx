@@ -1,10 +1,10 @@
 import { CampaignCard } from "../components/card/CampaignCard";
-import { campaignsData } from "../services/ContentList";
 import notFound from "../assets/notFound.mp4";
 import { useEffect, useState } from "react";
 import { CampaignInterface } from "../services/Interface";
 import { useNavigate } from "react-router-dom";
 import { SearchBar } from "../components/small/SearchBar";
+import { getCampaigns } from "../services/Blockchain";
 
 export const Campaign = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const Campaign = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await campaignsData;
+      const data = await getCampaigns();
       setCampaigns(data);
     };
     fetchData();

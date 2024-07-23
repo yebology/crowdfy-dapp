@@ -1,10 +1,30 @@
+import { useEffect, useState } from "react";
+import {
+  convertToETH,
+  convertToPercentage,
+  countRemainingTime,
+} from "../../services/Helper";
 import { CampaignCardProps } from "../../services/Interface";
 import { MdOutlinePersonOutline } from "react-icons/md";
+import { getParticipants } from "../../services/Blockchain";
 
 export const CampaignCard: React.FC<CampaignCardProps> = ({
   campaign,
   actionClick,
 }) => {
+  const [participantTotal, setParticipantTotal] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getParticipants(campaign.id);
+      const dataTotal = data.length;
+      setParticipantTotal(dataTotal);
+    };
+    fetchData();
+  }, []);
+
+  const remainingTime = countRemainingTime(campaign.campaignStart, campaign.campaignEnd);
+
   return (
     <div>
       <div
@@ -18,12 +38,26 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({
           />
           <div className="absolute top-0 p-2 left-0 flex space-x-1">
             <div className="text-xs text-center font-semibold py-1 px-2 bg-gray-100 rounded-md mx-auto uppercase">
-              2 days left
+              {remainingTime == "CLOSED" && (
+                <div>
+                  <div>CLOSED</div>
+                </div>
+              )}
+              {remainingTime == "NOT STARTED" && (
+                <div>
+                  <div>NOT STARTED</div>
+                </div>
+              )}
+              {remainingTime != "CLOSED" && remainingTime != "NOT STARTED" && (
+                <div>
+                  <div>{remainingTime}</div>
+                </div>
+              )}
             </div>
             <div className="text-xs font-semibold py-1 px-1.5 bg-gray-100 rounded-md mx-auto">
               <div className="flex items-center space-x-1">
                 <MdOutlinePersonOutline size={16} />
-                <span>10</span>
+                <span>{participantTotal}</span>
               </div>
             </div>
           </div>
@@ -36,7 +70,11 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({
             >
               <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
                 <h5 className="text-xs text-center font-bold text-green-400">
-                  70%
+                  {convertToPercentage(
+                    campaign.currentRaised,
+                    campaign.fundsRequired
+                  )}
+                  {"%"}
                 </h5>
               </div>
             </div>
@@ -52,7 +90,12 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div
                   className="bg-green-400 h-2 rounded-full"
-                  style={{ width: `70%` }}
+                  style={{
+                    width: `${convertToPercentage(
+                      campaign.currentRaised,
+                      campaign.fundsRequired
+                    )}%`,
+                  }}
                 />
               </div>
             </div>
@@ -73,18 +116,26 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({
             <div className="grid grid-cols-3 w-full my-4 text-center">
               <div className="flex flex-col items-center justify-center">
                 <h1 className="text-xs">Raised</h1>
-                <h1 className="text-sm text-black font-bold">0.1 ETH</h1>
+                <h1 className="text-sm text-black font-bold">
+                  {convertToETH(campaign.currentRaised)} ETH
+                </h1>
               </div>
               <div className="flex flex-col items-center justify-center border-l-2 border-r-2 -my-4">
                 <div>
                   <h1 className="text-xs">Goals</h1>
-                  <h1 className="text-sm text-black font-bold">0.1 ETH</h1>
+                  <h1 className="text-sm text-black font-bold">
+                    {convertToETH(campaign.fundsRequired)} ETH
+                  </h1>
                 </div>
               </div>
               <div className="text-center">
                 <div className="flex flex-col items-center justify-center">
                   <h1 className="text-xs">Left</h1>
-                  <h1 className="text-sm text-black font-bold">0.1 ETH</h1>
+                  <h1 className="text-sm text-black font-bold">
+                    {convertToETH(campaign.fundsRequired) -
+                      convertToETH(campaign.currentRaised)}{" "}
+                    ETH
+                  </h1>
                 </div>
               </div>
             </div>
