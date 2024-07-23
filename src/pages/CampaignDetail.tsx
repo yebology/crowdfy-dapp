@@ -30,6 +30,7 @@ export const CampaignDetail = () => {
   const [showFailedModal, setShowFailedModal] = useState(false);
   const [convertedId, setConvertedId] = useState(0);
   const [participant, setParticipant] = useState<ParticipantInterface[]>([]);
+  const [loadingContent, setLoadingContent] = useState(true);
 
   const handleClickParticipate = () => {
     if (!sessionStorage.getItem("connectedAccount")) {
@@ -63,7 +64,7 @@ export const CampaignDetail = () => {
         await transaction.wait()
         setGlobalState("loadingModalScale", "scale-0")
         setGlobalState("successfullyParticipateModalScale", "scale-100")
-        navigate("/")
+        navigate("/campaign")
       }
       catch (error) {
         console.log(error)
@@ -85,10 +86,20 @@ export const CampaignDetail = () => {
         setParticipant(participantData)
         setConvertedId(campaignId);
         setCampaign(foundCampaign);
+        setLoadingContent(false)
       }
     };
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    if (loadingContent) {
+      setGlobalState("loadingModalScale", "scale-100")
+    }
+    else {
+      setGlobalState("loadingModalScale", "scale-0")
+    }
+  }, [loadingContent])
 
   if (!id) {
     return <div>Error: Campaign ID is missing</div>;

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { setGlobalState } from "../services/Helper";
 import { parseEther } from "ethers";
 import { createCampaign } from "../services/Blockchain";
-import { useNavigate } from "react-router-dom";
 
 export const CreateCampaign = () => {
   const [minDateTime, setMinDateTime] = useState("");
@@ -12,7 +11,6 @@ export const CreateCampaign = () => {
   const [campaignStart, setCampaignStart] = useState("");
   const [campaignEnd, setCampaignEnd] = useState("");
   const [fundsRequired, setFundsRequired] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     if (!sessionStorage.getItem("connectedAccount")) {
@@ -47,7 +45,6 @@ export const CreateCampaign = () => {
         setGlobalState("loadingModalScale", "scale-0");
         setGlobalState("successfullyCreateCampaignScale", "scale-100");
         resetData();
-        navigate("/")
       } catch (error) {
         console.error(error);
         setGlobalState("loadingModalScale", "scale-0");
