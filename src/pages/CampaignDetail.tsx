@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { campaignsData, participantsData } from "../services/ContentList";
+import { participantsData } from "../services/ContentList";
 import { CampaignInterface } from "../services/Interface";
 import { DescriptionSection } from "../components/section/DescriptionSection";
 import { DetailSection } from "../components/section/DetailSection";
 import { ParticipantSection } from "../components/section/ParticipantSection";
 import { ParticipateConfirmationModal } from "../components/modal/ParticipateConfirmationModal";
 import { ErrorParticipateCampaignModal } from "../components/modal/ErrorParticipateCampaignModal";
+import { getCampaigns } from "../services/Blockchain";
 
 const defaultCampaign: CampaignInterface = {
   id: 0,
@@ -52,12 +53,15 @@ export const CampaignDetail = () => {
   };
 
   useEffect(() => {
-    if (id) {
-      const campaignId = parseInt(id, 10);
-      const foundCampaign =
-        campaignsData.find((c) => c.id === campaignId) || defaultCampaign;
-      setCampaign(foundCampaign);
+    const fetchData = async () => {
+      const data = await getCampaigns()
+      if (id) {
+        const campaignId = parseInt(id, 10)
+        const foundCampaign = data.find((campaign : CampaignInterface) => campaign.id === campaignId);
+        setCampaign(foundCampaign)
+      }
     }
+    fetchData()
   }, [id]);
 
   if (!id) {

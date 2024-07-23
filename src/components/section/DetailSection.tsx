@@ -5,7 +5,7 @@ import expired from "../../assets/expired.mp4";
 import amountLeft from "../../assets/amountLeft.mp4";
 import amountRaised from "../../assets/amountRaised.mp4";
 import amountGoals from "../../assets/amountGoals.mp4";
-import { unixTimestampConverter } from "../../services/Helper";
+import { convertToETH, truncate, unixTimestampConverter } from "../../services/Helper";
 
 export const DetailSection: React.FC<DetailSectionProps> = ({ campaign }) => {
   return (
@@ -24,7 +24,7 @@ export const DetailSection: React.FC<DetailSectionProps> = ({ campaign }) => {
 
               <h3 className="font-bold mt-2 mb-2">Campaign Creator</h3>
               <p className="text-center font-normal inline-block text-sm">
-                {"0x..81289"}
+                {truncate(campaign.campaignCreator, 4, 4, 11)}
               </p>
             </div>
             <div className="cursor-pointer hover:shadow-md transition-all duration-300 rounded-xl p-6 w-full flex flex-col justify-center items-center">
@@ -54,7 +54,7 @@ export const DetailSection: React.FC<DetailSectionProps> = ({ campaign }) => {
 
               <h3 className="font-bold mt-2 mb-2">ETH Goals</h3>
               <p className="text-center font-normal inline-block text-sm">
-                {"12 ETH"}
+                {convertToETH(campaign.fundsRequired)}{" "}ETH
               </p>
             </div>
             <div className="cursor-pointer hover:shadow-md transition-all duration-300 rounded-xl p-6 w-full flex flex-col justify-center items-center">
@@ -64,7 +64,7 @@ export const DetailSection: React.FC<DetailSectionProps> = ({ campaign }) => {
 
               <h3 className="font-bold mt-2 mb-2">ETH Raised</h3>
               <p className="text-center font-normal inline-block text-sm">
-                {"2 ETH"}
+              {convertToETH(campaign.currentRaised)}{" "}ETH
               </p>
             </div>
             <div className="cursor-pointer hover:shadow-md transition-all duration-300 rounded-xl p-6 w-full flex flex-col justify-center items-center">
@@ -74,7 +74,7 @@ export const DetailSection: React.FC<DetailSectionProps> = ({ campaign }) => {
 
               <h3 className="font-bold mt-2 mb-2">ETH Left</h3>
               <p className="text-center font-normal inline-block text-sm">
-                {"10 ETH"}
+              {((convertToETH(campaign.fundsRequired)) - (convertToETH(campaign.currentRaised)))}{" "}ETH
               </p>
             </div>
           </div>

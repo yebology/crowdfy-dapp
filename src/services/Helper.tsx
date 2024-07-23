@@ -13,7 +13,7 @@ export const { setGlobalState, useGlobalState } = createGlobalState({
 export function countRemainingTime(campaignStart: number, campaignEnd: number) {
   const now = Math.floor(Date.now() / 1000);
   if (now >= campaignEnd) {
-    return "CLOSE";
+    return "CLOSED";
   } 
   else if (now < campaignStart) {
     return "NOT STARTED";
