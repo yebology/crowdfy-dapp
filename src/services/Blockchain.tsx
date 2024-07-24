@@ -1,6 +1,6 @@
 import React from "react";
 import contractAbi from "../abi/DeployedContract.json";
-import { ethers, parseEther } from "ethers";
+import { ethers, formatEther, parseEther } from "ethers";
 
 const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
 const contractNetwork = import.meta.env.VITE_NETWORK;
@@ -19,21 +19,42 @@ export async function connectWallet() {
     }
     sessionStorage.setItem("connectedAccount", accounts[0]);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
-export function changeAccount(setConnectedAccount: React.Dispatch<React.SetStateAction<string>>): (accounts: string[]) => void {
+export function changeAccount(
+  setConnectedAccount: React.Dispatch<React.SetStateAction<string>>
+): (accounts: string[]) => void {
   return (accounts: string[]) => {
     if (accounts.length > 0) {
-      sessionStorage.setItem("connectedAccount", accounts[0])
-      setConnectedAccount(accounts[0])
+      sessionStorage.setItem("connectedAccount", accounts[0]);
+      setConnectedAccount(accounts[0]);
     }
+  };
+}
+
+export async function fetchUserBalance(
+  account: string,
+) {
+  if ((window as any).ethereum) {
+    const provider = new ethers.BrowserProvider((window as any).ethereum);
+    const userBalanceInWei = await provider.getBalance(account);
+    const userBalanceInEther = formatEther(userBalanceInWei);
+    sessionStorage.setItem("userBalance", userBalanceInEther);
+    console.log(sessionStorage.getItem("userBalance"));
   }
 }
 
 export function disconnectWallet() {
   sessionStorage.removeItem("connectedAccount");
+}
+
+export async function getUserBalance() {
+  try {
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function getCampaigns() {
@@ -67,7 +88,7 @@ export async function createCampaign(
     );
     return transaction;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return "";
   }
 }
@@ -81,7 +102,7 @@ export async function participateCampaign(campaignId: number, amount: string) {
     });
     return transaction;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return "";
   }
 }
@@ -105,7 +126,7 @@ async function loadCampaigns() {
     const campaigns = await contract.getCampaigns();
     return structuredCampaigns(campaigns);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return [];
   }
 }
@@ -116,7 +137,7 @@ async function loadParticipant(campaignId: number) {
     const participants = await contract.getParticipant(campaignId);
     return structuredParticipants(participants);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return [];
   }
 }

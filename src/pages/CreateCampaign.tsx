@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { setGlobalState } from "../services/Helper";
 import { parseEther } from "ethers";
 import { createCampaign } from "../services/Blockchain";
 
 export const CreateCampaign = () => {
-  const [minDateTime, setMinDateTime] = useState("");
   const [campaignTitle, setCampaignTitle] = useState("");
   const [campaignPicture, setCampaignPicture] = useState("");
   const [campaignDescription, setCampaignDescription] = useState("");
@@ -48,25 +47,19 @@ export const CreateCampaign = () => {
       } catch (error) {
         console.error(error);
         setGlobalState("loadingModalScale", "scale-0");
-        setGlobalState("errorCreateCampaignModalScale", "scale-100")
+        setGlobalState("errorCreateCampaignModalScale", "scale-100");
       }
     }
   };
 
   const resetData = () => {
-    setCampaignTitle("")
-    setCampaignDescription("")
-    setCampaignPicture("")
-    setCampaignStart("")
-    setCampaignEnd("")
-    setFundsRequired("")
-  }
-
-  useEffect(() => {
-    const now = new Date();
-    const formatedDateTime = now.toISOString().slice(0, 16);
-    setMinDateTime(formatedDateTime);
-  }, []);
+    setCampaignTitle("");
+    setCampaignDescription("");
+    setCampaignPicture("");
+    setCampaignStart("");
+    setCampaignEnd("");
+    setFundsRequired("");
+  };
 
   return (
     <div className="mt-8 mb-16 w-full">
@@ -76,7 +69,7 @@ export const CreateCampaign = () => {
           <img
             src={
               campaignPicture ||
-              "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg"
+              "https://img.freepik.com/free-vector/cartoon-tiny-managers-with-giant-loudspeaker-laptop-flat-illustration_74855-16816.jpg?t=st=1721793776~exp=1721797376~hmac=1c4aff78a9dcb8c649c7f40eb90a6eca13acc748eec3877d4015f6c3c9a33d69&w=740"
             }
             alt="title"
             className="h-full w-full object-cover cursor-pointer"
@@ -138,7 +131,6 @@ export const CreateCampaign = () => {
               type="datetime-local"
               name="campaignStart"
               onChange={(e) => setCampaignStart(e.target.value)}
-              min={minDateTime}
               value={campaignStart}
               required
             />

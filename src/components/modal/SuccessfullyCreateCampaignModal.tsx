@@ -1,10 +1,8 @@
 import { setGlobalState, useGlobalState } from "../../services/Helper";
 import { FaTimes } from "react-icons/fa";
 import successCreate from "../../assets/sucessCreate.mp4";
-import { useNavigate } from "react-router-dom";
 
 export const SuccessfullyCreateCampaignModal = () => {
-  const navigate = useNavigate();
   const [successfullyCreateCampaignScale] = useGlobalState(
     "successfullyCreateCampaignScale"
   );
@@ -15,7 +13,6 @@ export const SuccessfullyCreateCampaignModal = () => {
 
   const handleClick = () => {
     onClose()
-    navigate("/")
   }
 
   return (
@@ -50,7 +47,7 @@ export const SuccessfullyCreateCampaignModal = () => {
             type="button"
             className="duration-200 hover:scale-105 w-full font-bold shadow-sm rounded-full py-4 bg-green-400 text-white flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
           >
-            <span className="text-white">Back to Home</span>
+            <span className="text-white">Close Popup</span>
           </button>
         </div>
       </div>

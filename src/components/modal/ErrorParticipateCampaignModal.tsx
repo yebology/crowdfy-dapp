@@ -34,7 +34,7 @@ export const ErrorParticipateCampaignModal : React.FC<ErrorParticipateCampaignMo
           <h1>Your access has been denied</h1>
         </div>
         <div className="font-normal text-md text-center flex justify-center items-center">
-          <h1>There is an internal error</h1>
+          <h1>There is an internal error, whether check your balance or input again!</h1>
         </div>
         <div className="mt-4 flex justify-center items-center">
           <button

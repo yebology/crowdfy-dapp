@@ -3,7 +3,7 @@ import { DescriptionSectionProps } from "../../services/Interface";
 
 export const DescriptionSection: React.FC<DescriptionSectionProps> = ({
   campaign,
-  actionClick
+  actionClick,
 }) => {
   const scrollToSection = () => {
     const element = document.getElementById("detail");
@@ -45,13 +45,19 @@ export const DescriptionSection: React.FC<DescriptionSectionProps> = ({
               <p className="font-normal text-[18px] leading-[30.8px] max-w-[600px] mt-5">
                 {campaign.campaignDescription}
               </p>
-              <div className="flex flex-row space-x-2">
-                <button
-                  onClick={actionClick}
-                  className="mt-6 text-white font-normal rounded-xl bg-green-400 py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
-                >
-                  Participate
-                </button>
+              <div
+                className={`flex flex-row ${
+                  campaign.status == 0 ? "space-x-2" : ""
+                }`}
+              >
+                {campaign.status == 0 && (
+                  <button
+                    onClick={actionClick}
+                    className="mt-6 text-white font-normal rounded-xl bg-green-400 py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
+                  >
+                    Participate
+                  </button>
+                )}
                 <button
                   onClick={scrollToSection}
                   className="mt-6 text-white font-normal rounded-xl border-2 border-green-400 py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"

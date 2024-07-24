@@ -25,6 +25,7 @@ const defaultCampaign: CampaignInterface = {
 export const CampaignDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate()
+  const userBalance = parseFloat(sessionStorage.getItem("userBalance") ?? "")
   const [campaign, setCampaign] = useState<CampaignInterface>(defaultCampaign);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false);
@@ -52,7 +53,7 @@ export const CampaignDetail = () => {
   };
 
   const handleProcessSendETH = async (amount: number) => {
-    if (amount < 0.000001) {
+    if ((amount < 0.000001) || (amount > userBalance)) {
       setShowConfirmationModal(false);
       setShowFailedModal(true);
     } 
